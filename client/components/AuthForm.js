@@ -29,6 +29,11 @@ class AuthForm extends Component {
               placeholder="Password"
             />
           </div>
+          <div className="errors">
+            {this.props.errors.map((error) => (
+              <div key={error}>{error}</div>
+            ))}
+          </div>
           <button className="btn">Submit</button>
         </form>
       </div>

@@ -2,7 +2,12 @@ import React from "react";
 import Header from "./Header";
 
 const App = (props) => {
-  return <div className="container">{props.children}</div>;
+  return (
+    <div className="container">
+      <p>welcome</p>
+      {props.children}
+    </div>
+  );
 };
 
 export default App;
