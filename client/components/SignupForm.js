@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import AuthForm from "./AuthForm";
-import mutation from "../mutations/Login";
+import mutation from "../mutations/Signup";
 import { graphql } from "@apollo/client/react/hoc";
 import query from "../queries/CurrentUser";
 import history from "../history";
 
-class LoginForm extends Component {
+class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = { errors: [] };
   }
+
   componentWillUpdate(nextProps) {
-    // this.props -> old, current set op props
-    // nextProps -> next set of props tat will be in plaze when the component rerenders
-    if (!this.props.data.currentUser && nextProps.data.currentUser) {
+    if (nextProps.data.currentUser && !this.props.data.currentUser) {
       history.push("/dashboard");
     }
   }
+
   onSubmit({ email, password }) {
     this.props
       .mutate({
@@ -25,13 +25,14 @@ class LoginForm extends Component {
       })
       .catch((res) => {
         const errors = res.graphQLErrors.map((error) => error.message);
-        this.setState({ errors });
+        this.setState({ errors: errors });
       });
   }
+
   render() {
     return (
       <div>
-        <h3>Login</h3>
+        <h3>Signup</h3>
         <AuthForm
           onSubmit={this.onSubmit.bind(this)}
           errors={this.state.errors}
@@ -41,4 +42,4 @@ class LoginForm extends Component {
   }
 }
 
-export default graphql(query)(graphql(mutation)(LoginForm));
+export default graphql(query)(graphql(mutation)(SignupForm));
