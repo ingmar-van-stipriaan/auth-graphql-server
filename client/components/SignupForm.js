@@ -3,7 +3,7 @@ import AuthForm from "./AuthForm";
 import mutation from "../mutations/Signup";
 import { graphql } from "@apollo/client/react/hoc";
 import query from "../queries/CurrentUser";
-import history from "../history";
+import { Navigate } from "react-router-dom";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class SignupForm extends Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.data.currentUser && !this.props.data.currentUser) {
-      history.push("/dashboard");
+      return <Navigate to="/login" />;
     }
   }
 
